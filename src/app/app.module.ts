@@ -25,6 +25,7 @@ import { DetailsCvComponent } from "./cv/details-cv/details-cv.component";
 import { NgstyleComponent } from "./directives/ngstyle/ngstyle.component";
 import { MiniWordComponent } from "./directives/mini-word/mini-word.component";
 import { NgclassComponent } from "./directives/ngclass/ngclass.component";
+import { RainbowDirective } from "./directives/rainbow.directive";
 import { TodoComponent } from "./todo/todo/todo.component";
 
 import { HighlightDirective } from "./directives/highlight.directive";
@@ -76,6 +77,7 @@ import { SliderComponent } from "./rxjs/slider/slider.component";
     MiniWordComponent,
     NgclassComponent,
     HighlightDirective,
+    RainbowDirective,
     Btc2usdPipe,
     TodoComponent,
     NavbarComponent,
