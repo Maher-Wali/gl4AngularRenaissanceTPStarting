@@ -1,0 +1,126 @@
+<div class="container p-3" style="background-color: skyblue">
+  <div class="row mb-2">
+    <div class="col">
+      <label>Name</label>
+      <input [(ngModel)]="todo().name" type="text" class="form-control" />
+    </div>
+    <div class="col">
+      <label>Content</label>
+      <input [(ngModel)]="todo().content" type="text" class="form-control" />
+    </div>
+    <div class="col d-flex align-items-end">
+      <button
+        (click)="addTodo()"
+        [disabled]="!todo().name.trim() || !todo().content.trim()"
+        class="btn m-2"
+        style="background-color: red; color: white"
+      >
+        add
+      </button>
+    </div>
+  </div>
+  <div class="row gap-2">
+    <div class="col bg-secondary-subtle rounded-2">
+      <h3>Waiting</h3>
+      <ul class="list-group mb-2 mt-2 list-unstyled">
+        @for (t of waiting(); track t.id){
+        <li
+          class="mt-2 mb-2 ml-1 mr-1 bg-white bg-opacity-50 row list-group-item d-flex justify-content-between align-items-center"
+        >
+          <div class="col">
+            <h5>{{ t.name }}</h5>
+            <p>{{ t.content }}</p>
+          </div>
+          <div class="col">
+            <div class="row">
+              <button
+                (click)="changeStatus(t, 'in progress')"
+                class="btn btn-warning m-1 col"
+              >
+                In Progress
+              </button>
+              <button
+                (click)="changeStatus(t, 'done')"
+                class="btn btn-success m-1 col"
+              >
+                Done
+              </button>
+              <button (click)="deleteTodo(t)" class="btn btn-danger m-1 col">
+                delete
+              </button>
+            </div>
+          </div>
+        </li>
+        }
+      </ul>
+    </div>
+    <div class="col bg-warning-subtle rounded-2">
+      <h3>In Progress Todos</h3>
+      <ul class="list-group mb-2 mt-2 list-unstyled">
+        @for (t of inProgress(); track t.id){
+        <li
+          class="mt-2 mb-2 ml-1 mr-1 bg-white bg-opacity-50 row list-group-item d-flex justify-content-between align-items-center"
+        >
+          <div class="col">
+            <h5>{{ t.name }}</h5>
+            <p>{{ t.content }}</p>
+          </div>
+          <div class="col">
+            <div class="row">
+              <button
+                (click)="changeStatus(t, 'waiting')"
+                class="btn btn-secondary m-1 col"
+              >
+                Waiting
+              </button>
+              <button
+                (click)="changeStatus(t, 'done')"
+                class="btn btn-success m-1 col"
+              >
+                Done
+              </button>
+              <button (click)="deleteTodo(t)" class="btn btn-danger m-1 col">
+                delete
+              </button>
+            </div>
+          </div>
+        </li>
+        }
+      </ul>
+    </div>
+    <div class="col bg-success-subtle rounded-2">
+      <h3>Done Todos</h3>
+      <ul class="list-group mb-2 mt-2 list-unstyled">
+        @for (t of done(); track t.id){
+        <li
+          class="mt-2 mb-2 ml-1 mr-1 bg-white bg-opacity-50 row list-group-item d-flex justify-content-between align-items-center"
+        >
+          <div class="col">
+            <h5>{{ t.name }}</h5>
+            <p>{{ t.content }}</p>
+          </div>
+          <div class="col">
+            <div class="row">
+              <button
+                (click)="changeStatus(t, 'waiting')"
+                class="btn btn-secondary m-1 col"
+              >
+                Waiting
+              </button>
+              <button
+                (click)="changeStatus(t, 'in progress')"
+                class="btn btn-warning m-1 col"
+              >
+                In Progress
+              </button>
+              <button (click)="deleteTodo(t)" class="btn btn-danger m-1 col">
+                delete
+              </button>
+            </div>
+          </div>
+        </li>
+        }
+      </ul>
+    </div>
+  </div>
+</div>
