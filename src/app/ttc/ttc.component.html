@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="header">
+    <h2>TTC Calculator</h2>
+    <Button class="btn" (click)="clearAll()" title="Reload">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.418A6 6 0 1 1 8 2v1z"
+        />
+        <path d="M8 0a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-1 0v-4A.5.5 0 0 1 8 0z" />
+      </svg>
+    </Button>
+  </div>
+  <div class="calculator-grid">
+    <div class="column">
+      <input
+        type="number"
+        [ngModel]="prix()"
+        (ngModelChange)="prix.set($event)"
+      />
+      <label>Prix HT</label>
+      <div class="result blue">
+        <div class="value name">
+          Prix unitaire TTC :${{ prixTTCUnitaire() | number : "1.2-2" }}
+        </div>
+      </div>
+    </div>
+
+    <div class="column">
+      <input
+        type="number"
+        [ngModel]="quantite()"
+        (ngModelChange)="quantite.set($event)"
+      />
+      <label>Quantité</label>
+      <div class="result green">
+        <div class="value name">
+          Prix total TTC :${{ prixTTCTotal() | number : "1.2-2" }}
+        </div>
+      </div>
+    </div>
+
+    <div class="column">
+      <input
+        type="number"
+        [ngModel]="tva()"
+        (ngModelChange)="tva.set($event)"
+      />
+      <label>TVA (%)</label>
+      <div class="result red">
+        <div class="value name">
+          Discount: ${{ remise() | number : "1.2-2" }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

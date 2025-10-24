@@ -12,6 +12,7 @@ import { AddCvComponent } from "./cv/add-cv/add-cv.component";
 import { CvComponent } from "./cv/cv/cv.component";
 import { DetailsCvComponent } from "./cv/details-cv/details-cv.component";
 import { RhComponent } from "./optimizationPattern/rh/rh.component";
+import { TtcComponent } from "./ttc/ttc.component";
 
 const routes: Route[] = [
   { path: "login", component: LoginComponent },
@@ -19,6 +20,10 @@ const routes: Route[] = [
   {
     path: "cv",
     component: CvComponent,
+  },
+  {
+    path: "ttc",
+    component: TtcComponent,
   },
   { path: "cv/add", component: AddCvComponent, canActivate: [AuthGuard] },
   { path: "cv/:id", component: DetailsCvComponent },
@@ -42,4 +47,4 @@ const routes: Route[] = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

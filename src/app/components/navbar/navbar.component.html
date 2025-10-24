@@ -35,6 +35,13 @@
               routerLinkActive="active text-primary"
               >Cv</a
               >
+                  <a
+              class="nav-link"
+              [routerLinkActiveOptions]="{ exact: true }"
+              [routerLink]="['ttc']"
+              routerLinkActive="active text-primary"
+              >TTC</a
+              >
               @if (authService.isAuthenticated()) {
                 <a
                   class="nav-link"
