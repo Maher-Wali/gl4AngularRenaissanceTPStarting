@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, input, inject } from '@angular/core';
 import { Cv } from '../model/cv';
 import { EmbaucheService } from '../services/embauche.service';
 import { ToastrService } from 'ngx-toastr';
@@ -20,22 +20,24 @@ export class CvCardComponent {
   private embaucheService = inject(EmbaucheService);
   private toastr = inject(ToastrService);
 
+  // Using signal-based input (Angular 18+)
+  cv = input<Cv | null>(null);
+
   /** Inserted by Angular inject() migration for backwards compatibility */
   constructor(...args: unknown[]);
 
   constructor() {}
-  @Input() cv: Cv | null = null;
 
-  ngOnInit() {}
   embaucher() {
-    if (this.cv) {
-      if (this.embaucheService.embauche(this.cv)) {
+    const currentCv = this.cv();
+    if (currentCv) {
+      if (this.embaucheService.embauche(currentCv)) {
         this.toastr.success(
-          `${this.cv?.firstname} ${this.cv?.name} a été pré embauché`
+          `${currentCv.firstname} ${currentCv.name} a été pré embauché`
         );
       } else {
         this.toastr.warning(
-          `${this.cv?.firstname} ${this.cv?.name} est déjà pré embauché`
+          `${currentCv.firstname} ${currentCv.name} est déjà pré embauché`
         );
       }
     }

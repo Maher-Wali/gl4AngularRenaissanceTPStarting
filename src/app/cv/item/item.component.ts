@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, inject } from "@angular/core";
+import { Component, input, inject } from "@angular/core";
 import { Cv } from "../model/cv";
 import { CvService } from "../services/cv.service";
 import { NgStyle } from "@angular/common";
@@ -14,14 +14,15 @@ import { DefaultImagePipe } from "../pipes/default-image.pipe";
 export class ItemComponent {
   private cvService = inject(CvService);
 
-  @Input({ required: true }) cv!: Cv;
-  @Input() size = 50;
+  // Using signal-based inputs (Angular 18+)
+  cv = input.required<Cv>();
+  size = input<number>(50);
 
   /** Inserted by Angular inject() migration for backwards compatibility */
   constructor(...args: unknown[]);
   constructor() {}
 
   onSelectCv() {
-    this.cvService.selectCv(this.cv);
+    this.cvService.selectCv(this.cv());
   }
 }
