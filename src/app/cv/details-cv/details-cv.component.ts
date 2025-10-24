@@ -21,6 +21,8 @@ export class DetailsCvComponent implements OnInit {
   private activatedRoute = inject(ActivatedRoute);
   private toastr = inject(ToastrService);
   authService = inject(AuthService);
+  readonly isAuthenticated = this.authService.userAuthenticated;
+
 
   cv: Cv | null = null;
 

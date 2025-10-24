@@ -16,14 +16,12 @@ import { APP_ROUTES } from '../../../config/routes.config';
 ],
 })
 export class NavbarComponent {
-  authService = inject(AuthService);
+  private authService = inject(AuthService);
   private router = inject(Router);
   private toastr = inject(ToastrService);
 
-  /** Inserted by Angular inject() migration for backwards compatibility */
-  constructor(...args: unknown[]);
+  readonly isAuthenticated = this.authService.userAuthenticated;
 
-  constructor() {}
 
   logout() {
     this.authService.logout();
