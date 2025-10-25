@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from "@angular/core";
+import { Component, input } from "@angular/core";
 import { Cv } from "../model/cv";
 import { NgClass } from "@angular/common";
 import { ItemComponent } from "../item/item.component";
@@ -14,5 +14,6 @@ import { ItemComponent } from "../item/item.component";
 ],
 })
 export class ListComponent {
-  @Input() cvs: Cv[] | null = [];
+  // Using signal-based input (Angular 18+)
+  cvs = input<Cv[]>([]);
 }
