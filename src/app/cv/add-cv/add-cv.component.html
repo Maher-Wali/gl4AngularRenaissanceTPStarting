@@ -26,11 +26,15 @@
   <button [disabled]="form.invalid" class="btn btn-primary" (click)="addCv()">
     add cv
   </button>
-    @if (draftRestored) {
+  @if (draftRestored) {
   <div class="alert alert-info">
     Un brouillon de votre formulaire a été restauré.
   </div>
   }
-
+  @if (age.value < 18) {
+  <div class="alert alert-warning">
+    Les mineurs ne peuvent pas importer une image de profil.
+  </div>
+  }
 </form>
 {{ form.errors | json }}

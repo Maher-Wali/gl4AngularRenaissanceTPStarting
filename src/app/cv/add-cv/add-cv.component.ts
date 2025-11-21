@@ -67,6 +67,7 @@ export class AddCvComponent {
       //patchValue remplit le formulaire avec cet objet sans exiger que tous les champs soient présents
 
       this.form.patchValue(JSON.parse(saved));
+      this.draftRestored = true;
     }
 
     // this.form.valueChanges: c’est un Observable d’Angular
@@ -75,6 +76,21 @@ export class AddCvComponent {
     //.subscribe : On s’abonne à ces changements.
     this.form.valueChanges.subscribe(value => {
       localStorage.setItem("cvDraft", JSON.stringify(value));
+    });
+
+    // désactiver path si age < 18
+    this.age.valueChanges.subscribe(ageValue => {
+
+      const pathControl = this.form.get("path");
+
+      if (!pathControl) return;
+
+      if (ageValue < 18) {
+        pathControl.disable();
+        pathControl.setValue(""); // on nettoie si une valeur existe déjà
+      } else {
+        pathControl.enable();
+      }
     });
   }
 
