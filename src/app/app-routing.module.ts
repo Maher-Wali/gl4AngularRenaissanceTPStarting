@@ -25,7 +25,7 @@ const routes: Route[] = [
     path: "ttc",
     component: TtcComponent,
   },
-  { path: "cv/add", component: AddCvComponent, canActivate: [AuthGuard] },
+  { path: "cv/add", component: AddCvComponent, /**canActivate: [AuthGuard] */},
   { path: "cv/:id", component: DetailsCvComponent },
   {
     path: "",

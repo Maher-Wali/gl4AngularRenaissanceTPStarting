@@ -8,15 +8,15 @@ import { Cv } from "../model/cv";
 import { JsonPipe } from "@angular/common";
 
 @Component({
-    selector: "app-add-cv",
-    templateUrl: "./add-cv.component.html",
-    styleUrls: ["./add-cv.component.css"],
-    standalone: true,
-    imports: [
+  selector: "app-add-cv",
+  templateUrl: "./add-cv.component.html",
+  styleUrls: ["./add-cv.component.css"],
+  standalone: true,
+  imports: [
     FormsModule,
     ReactiveFormsModule,
     JsonPipe
-],
+  ],
 })
 export class AddCvComponent {
   private cvService = inject(CvService);
@@ -27,8 +27,8 @@ export class AddCvComponent {
   /** Inserted by Angular inject() migration for backwards compatibility */
   constructor(...args: unknown[]);
 
-  constructor() {}
-
+  constructor() { }
+  draftRestored = false;
   form = this.formBuilder.group(
     {
       name: ["", Validators.required],
@@ -53,6 +53,7 @@ export class AddCvComponent {
   addCv() {
     this.cvService.addCv(this.form.value as Cv).subscribe({
       next: (cv) => {
+        localStorage.removeItem('cvDraft');
         this.router.navigate([APP_ROUTES.cv]);
         this.toastr.success(`Le cv ${cv.firstname} ${cv.name}`);
       },
@@ -63,6 +64,30 @@ export class AddCvComponent {
       },
     });
   }
+  ngOnInit(): void {
+
+    const savedForm = localStorage.getItem('cvDraft');
+
+    if (savedForm) {
+
+      //setValue oblige que tous les champs soient présents → sinon erreur 
+      //patchValue remplit le formulaire avec cet objet sans exiger que tous les champs soient 
+      
+      this.form.patchValue(JSON.parse(savedForm));
+      this.draftRestored = true;
+    }
+
+    // this.form.valueChanges: c’est un Observable d’Angular
+    // Il émet un nouvel événement chaque fois qu’un champ du formulaire change.
+    // Dès que l’utilisateur modifie quoi que ce soit → valueChanges est déclenché.
+
+    //.subscribe : On s’abonne à ces changements.
+    this.form.valueChanges.subscribe(value => {
+      localStorage.setItem('cvDraft', JSON.stringify(value));
+    });
+
+  }
+
 
   get name(): AbstractControl {
     return this.form.get("name")!;
