@@ -1,12 +1,17 @@
-<div class="row">
-  <div class="col">
-    <div class="alert alert-warning">
-      {{ date | date : "full" | uppercase }}
+<div class="container">
+  <!-- Autocomplete pour la recherche de CV -->
+  <app-autocomplete></app-autocomplete>
+  
+  <div class="row">
+    <div class="col">
+      <div class="alert alert-warning">
+        {{ date | date : "full" | uppercase }}
+      </div>
+      <app-list [cvs]="cvs$ | async"></app-list>
     </div>
-    <app-list [cvs]="cvs$ | async"></app-list>
+    <div class="col">
+      <app-cv-card [cv]="selectedCv$ | async"></app-cv-card>
+    </div>
   </div>
-  <div class="col">
-    <app-cv-card [cv]="selectedCv$ | async"></app-cv-card>
-  </div>
+  <app-embauche></app-embauche>
 </div>
-<app-embauche></app-embauche>

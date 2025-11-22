@@ -1,3 +1,43 @@
-<form [formGroup]="form">
-  <input type="text" class="form-control" formControlName="search" />
-</form>
+<div class="autocomplete-container">
+  <form [formGroup]="form">
+    <div class="form-group">
+      <label for="search">Rechercher un CV par nom:</label>
+      <input 
+        id="search"
+        type="text" 
+        class="form-control" 
+        formControlName="search"
+        placeholder="Tapez au moins 2 caractères..." />
+    </div>
+  </form>
+
+  <!-- Dropdown avec les résultats de recherche -->
+  <div class="results-dropdown" *ngIf="showResults && (cvs$ | async) as cvs">
+    <div class="list-group" *ngIf="cvs.length > 0">
+      <button 
+        type="button"
+        class="list-group-item list-group-item-action"
+        *ngFor="let cv of cvs"
+        (click)="selectCv(cv)">
+        <div class="d-flex align-items-center">
+          <img 
+            [src]="cv.path" 
+            [alt]="cv.firstname + ' ' + cv.name"
+            class="rounded-circle me-3"
+            width="40"
+            height="40">
+          <div>
+            <strong>{{ cv.firstname }} {{ cv.name }}</strong>
+            <br>
+            <small class="text-muted">{{ cv.job }} - {{ cv.age }} ans</small>
+          </div>
+        </div>
+      </button>
+    </div>
+    
+    <!-- Message si aucun résultat -->
+    <div class="alert alert-info mt-2" *ngIf="cvs.length === 0 && search.value?.length >= 2">
+      Aucun CV trouvé pour "{{ search.value }}"
+    </div>
+  </div>
+</div>
