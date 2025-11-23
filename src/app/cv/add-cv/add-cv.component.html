@@ -20,6 +20,30 @@
   >
     Cette Cin est invalide
   </div>
+  <div
+    *ngIf="cin?.errors?.['required'] && cin?.touched"
+    class="alert alert-danger"
+  >
+    Le CIN est obligatoire
+  </div>
+  <div
+    *ngIf="cin?.errors?.['pattern'] && cin?.touched"
+    class="alert alert-danger"
+  >
+    Le CIN doit contenir exactement 8 chiffres
+  </div>
+  <div
+    *ngIf="cin?.errors?.['cinNotUnique'] && cin?.touched"
+    class="alert alert-danger"
+  >
+    Ce CIN existe déjà. Veuillez en saisir un autre.
+  </div>
+  <div
+    *ngIf="cin?.pending"
+    class="alert alert-info"
+  >
+    Vérification du CIN en cours...
+  </div>
   Job: <input type="text" class="form-control" formControlName="job" /> Path:
   <input type="text" class="form-control" formControlName="path" />
 

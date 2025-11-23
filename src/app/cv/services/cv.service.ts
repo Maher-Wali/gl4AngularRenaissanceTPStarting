@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Cv } from "../model/cv";
 import { Observable, Subject } from "rxjs";
+import { map } from "rxjs/operators";
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { API } from "../../../config/api.config";
 
@@ -130,5 +131,17 @@ export class CvService {
    */
   selectCv(cv: Cv) {
     this.#selectCvSuject$.next(cv);
+  }
+
+  /**
+   * Vérifie si un CIN existe déjà dans la base de données
+   * 
+   * @param cin : string - Le CIN à vérifier
+   * @returns Observable<boolean> - true si le CIN existe, false sinon
+   */
+  checkCinExists(cin: string): Observable<boolean> {
+    return this.selectByProperty('cin', cin).pipe(
+      map((cvs: Cv[]) => cvs.length > 0)
+    );
   }
 }
