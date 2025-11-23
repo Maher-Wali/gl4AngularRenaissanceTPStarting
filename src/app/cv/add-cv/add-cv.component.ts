@@ -10,6 +10,7 @@ import { ToastrService } from "ngx-toastr";
 import { APP_ROUTES } from "src/config/routes.config";
 import { Cv } from "../model/cv";
 import { cinUniqueValidator } from "../validators/cin-unique.validator";
+import { cinAgeCorrelationValidator } from "../validators/cin-age.validator";
 
 @Component({
   selector: "app-add-cv",
@@ -45,6 +46,9 @@ export class AddCvComponent {
         },
       ],
     },
+    {
+      validators: [cinAgeCorrelationValidator()] // Validateur au niveau du FormGroup
+    }
   );
 
   addCv() {
@@ -94,6 +98,16 @@ export class AddCvComponent {
       } else {
         pathControl.enable();
       }
+    });
+
+    // Revalider le formulaire quand l'âge change pour vérifier la corrélation CIN-Age
+    this.age.valueChanges.subscribe(() => {
+      this.form.updateValueAndValidity();
+    });
+
+    // Revalider le formulaire quand le CIN change pour vérifier la corrélation CIN-Age
+    this.cin.valueChanges.subscribe(() => {
+      this.form.updateValueAndValidity();
     });
   }
 

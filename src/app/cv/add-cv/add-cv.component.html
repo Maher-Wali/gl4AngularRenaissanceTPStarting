@@ -44,6 +44,12 @@
   >
     Vérification du CIN en cours...
   </div>
+  <div
+    *ngIf="form.errors?.['cinAgeCorrelation'] && cin?.touched && age?.touched"
+    class="alert alert-danger"
+  >
+    {{ form.errors?.['cinAgeCorrelation'].message }}
+  </div>
   Job: <input type="text" class="form-control" formControlName="job" /> Path:
   <input type="text" class="form-control" formControlName="path" />
 
