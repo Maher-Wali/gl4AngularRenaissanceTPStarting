@@ -5,6 +5,8 @@ import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { APP_ROUTES } from "src/config/routes.config";
 import { Cv } from "../model/cv";
+import { cinUniqueValidator } from "../validators/cin-unique.validator";
+import { cinAgeCorrelationValidator } from "../validators/cin-age.validator";
 
 @Component({
   selector: "app-add-cv",

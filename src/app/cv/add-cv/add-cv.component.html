@@ -22,6 +22,38 @@
 
   Path:
   <input type="text" class="form-control" formControlName="path" [disabled]="disableImageUpload" />
+  <div
+    *ngIf="cin?.errors?.['required'] && cin?.touched"
+    class="alert alert-danger"
+  >
+    Le CIN est obligatoire
+  </div>
+  <div
+    *ngIf="cin?.errors?.['pattern'] && cin?.touched"
+    class="alert alert-danger"
+  >
+    Le CIN doit contenir exactement 8 chiffres
+  </div>
+  <div
+    *ngIf="cin?.errors?.['cinNotUnique'] && cin?.touched"
+    class="alert alert-danger"
+  >
+    Ce CIN existe déjà. Veuillez en saisir un autre.
+  </div>
+  <div
+    *ngIf="cin?.pending"
+    class="alert alert-info"
+  >
+    Vérification du CIN en cours...
+  </div>
+  <div
+    *ngIf="form.errors?.['cinAgeCorrelation'] && cin?.touched && age?.touched"
+    class="alert alert-danger"
+  >
+    {{ form.errors?.['cinAgeCorrelation'].message }}
+  </div>
+  Job: <input type="text" class="form-control" formControlName="job" /> Path:
+  <input type="text" class="form-control" formControlName="path" />
 
   <button [disabled]="form.invalid" class="btn btn-primary" (click)="addCv()">
     add cv

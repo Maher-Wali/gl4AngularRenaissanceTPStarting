@@ -12,7 +12,7 @@ export class ProductService {
   getProducts(setting: Settings) {
     const { limit, skip } = setting;
     return this.http.get<ProductApiResponse>(
-      `${API.products}?limit=${limit}&skip=${skip}`
+      `${API.products}?limit=${limit}&skip=${skip}&select=title,thumbnail`
     );
   }
 }
