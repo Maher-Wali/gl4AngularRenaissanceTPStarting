@@ -1,5 +1,5 @@
 @if ((products()); as productsList) {
-  <button class="btn btn-primary"> More Products</button>
+  <button class="btn btn-primary" (click)="loadMore()"> More Products</button>
   <div class="alert alert-warning">
     Product Number: {{productsList?.length}}
   </div>
