@@ -2,39 +2,40 @@
 <form [formGroup]="form">
   Name:
   <input type="text" class="form-control" formControlName="name" />
-  <div
-    *ngIf="form.get('name')?.errors && form.get('name')?.touched"
-    class="alert alert-danger"
-  >
+  <div *ngIf="form.get('name')?.errors && form.get('name')?.touched" class="alert alert-danger">
     Ce champ est obligatoire
   </div>
+
   Firstname:
-  <input type="text" class="form-control" formControlName="firstname" /> Age:
-  <input type="text" class="form-control" formControlName="age" /> Cin:
+  <input type="text" class="form-control" formControlName="firstname" />
+
+  Age:
+  <input type="text" class="form-control" formControlName="age"/>
+
+  Cin:
   <input type="text" class="form-control" formControlName="cin" />
-  <div
-    *ngIf="
-      form.errors && form.errors['cinFirstCars'] && cin?.touched && age?.touched
-    "
-    class="alert alert-danger"
-  >
+  <div *ngIf="form.errors && form.errors['cinFirstCars'] && cin?.touched && age?.touched" class="alert alert-danger">
     Cette Cin est invalide
   </div>
-  Job: <input type="text" class="form-control" formControlName="job" /> Path:
-  <input type="text" class="form-control" formControlName="path" />
+
+  Job: <input type="text" class="form-control" formControlName="job" />
+
+  Path:
+  <input type="text" class="form-control" formControlName="path" [disabled]="disableImageUpload" />
 
   <button [disabled]="form.invalid" class="btn btn-primary" (click)="addCv()">
     add cv
   </button>
-  @if (draftRestored) {
-  <div class="alert alert-info">
+
+  <!-- Message de brouillon restauré -->
+  <div *ngIf="draftRestored" class="alert alert-info">
     Un brouillon de votre formulaire a été restauré.
   </div>
-  }
-  @if (age.value < 18) {
-  <div class="alert alert-warning">
+
+  <!-- Message mineur -->
+  <div *ngIf="age.value < 18" class="alert alert-warning">
     Les mineurs ne peuvent pas importer une image de profil.
   </div>
-  }
 </form>
+
 {{ form.errors | json }}
