@@ -49,6 +49,12 @@
         >
           Todo Signal
         </a>
+        <a
+          class="nav-link"
+          [routerLinkActiveOptions]="{ exact: true }"
+          [routerLink]="['products']"
+          routerLinkActive="active text-primary"
+        >products</a>
         @if (authService.isAuthenticated()) {
         <a
           class="nav-link"

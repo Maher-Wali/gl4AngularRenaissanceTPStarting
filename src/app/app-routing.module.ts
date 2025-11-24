@@ -14,6 +14,7 @@ import { DetailsCvComponent } from "./cv/details-cv/details-cv.component";
 import { RhComponent } from "./optimizationPattern/rh/rh.component";
 import { TtcComponent } from "./ttc/ttc.component";
 import { TodoSignalComponent } from "./todo-signal/todo-signal/todo-signal.component";
+import { ProductsComponent } from "./products/products.component";
 
 const routes: Route[] = [
   { path: "login", component: LoginComponent },
@@ -44,6 +45,7 @@ const routes: Route[] = [
   {
     path: "todo-signal", component: TodoSignalComponent
   },
+  { path: "products", component: ProductsComponent },
   { path: "**", component: NF404Component },
 ];
 
