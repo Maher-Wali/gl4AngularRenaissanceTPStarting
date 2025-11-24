@@ -37,7 +37,7 @@ export class AddCvComponent {
     // Restaurer brouillon
     const saved = localStorage.getItem("cvDraft");
     if (saved) {
-      //setValue oblige que tous les champs soient présents → sinon erreur 
+      //setValue oblige que tous les champs soient présents , sinon erreur 
       //patchValue remplit le formulaire avec cet objet sans exiger que tous les champs soient présents
       this.form.patchValue(JSON.parse(saved));
       this.draftRestored = true;
@@ -49,10 +49,20 @@ export class AddCvComponent {
     }
 
     // Sauvegarde automatique
-    // this.form.valueChanges: c’est un Observable d’Angular 
-    // Il émet un nouvel événement chaque fois qu’un champ du formulaire change. 
-    // Dès que l’utilisateur modifie quoi que ce soit → valueChanges est déclenché. 
+    // this.form.valueChanges: c’est un Observable d’Angular
+    // Il émet un nouvel événement chaque fois qu’un champ du formulaire change.
+    // Dès que l’utilisateur modifie quoi que ce soit → valueChanges est déclenché.
     //.subscribe : On s’abonne à ces changements.
+    // valueChanges() = Cold Observable
+
+    // Le formulaire existe déjà, mais les événements de changement ne sont pas émis dans le vide.
+
+    // Les événements(input, change, etc.) ne sont capturés que lorsqu’un abonnement est actif →
+    //  donc c’est bien cold.
+
+    // Si tu t’abonnes après un changement, tu ne reçois pas les anciennes valeurs,
+    // ce qui est normal pour un cold stream.
+    
     this.form.valueChanges.subscribe((value) => {
       localStorage.setItem("cvDraft", JSON.stringify(value));
     });
@@ -93,8 +103,6 @@ export class AddCvComponent {
       },
     });
   }
-
-  // GETTERS
   get name(): AbstractControl {
     return this.form.get("name")!;
   }
