@@ -3,7 +3,7 @@
   <div class="col-md-4 col-sm-12">
     @defer (on viewport) {
     <div class="list-group">
-      @for (cv of cvs$ | async; track cv.id; let isOdd = $odd) {
+      @for (cv of cvs() ; track cv.id; let isOdd = $odd) {
 
       <a
         [routerLink]="[cv.id]"

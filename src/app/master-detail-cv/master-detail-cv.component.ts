@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ItemComponent } from '../cv/item/item.component';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-master-detail-cv',
@@ -18,12 +19,5 @@ export class MasterDetailCvComponent {
   private cvService = inject(CvService);
   private toastr = inject(ToastrService);
 
-  cvs$: Observable<Cv[]> = this.cvService.getCvs().pipe(
-    catchError((err) => {
-      this.toastr.error(
-        `Attention!! Les données sont fictives, problème avec le serveur. Veuillez contacter l'admin.`
-      );
-      return of(this.cvService.getFakeCvs());
-    })
-  );
+  cvs = toSignal(this.cvService.getCvs(), { initialValue: []});
 }

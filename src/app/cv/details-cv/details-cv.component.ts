@@ -1,12 +1,14 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, computed, effect, inject } from '@angular/core';
 import { Cv } from '../model/cv';
 import { CvService } from '../services/cv.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Params } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { APP_ROUTES } from '../../../config/routes.config';
 import { AuthService } from '../../auth/services/auth.service';
 
 import { DefaultImagePipe } from '../pipes/default-image.pipe';
+
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
     selector: 'app-details-cv',
@@ -15,35 +17,29 @@ import { DefaultImagePipe } from '../pipes/default-image.pipe';
     standalone: true,
     imports: [DefaultImagePipe],
 })
-export class DetailsCvComponent implements OnInit {
+export class DetailsCvComponent {
   private cvService = inject(CvService);
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
   private toastr = inject(ToastrService);
   authService = inject(AuthService);
 
-  cv: Cv | null = null;
+
+  routeParams = toSignal(this.activatedRoute.params);
+
+  id = computed(() => {
+    const params = this.routeParams() ?? {};
+    const val = params['id'];
+    return val !== undefined ? Number(val) : 0; 
+  });
+
+  cv = computed(() => this.cvService.getCvById(this.id()));
+
 
   /** Inserted by Angular inject() migration for backwards compatibility */
   constructor(...args: unknown[]);
   constructor() {}
 
-  ngOnInit() {
-    this.activatedRoute.params.subscribe((params) => {
-      const id = params['id'];
-
-      if (id) {
-        this.cvService.getCvById(+id).subscribe({
-          next: (cv) => {
-            this.cv = cv;
-          },
-          error: (e) => {
-            this.router.navigate([APP_ROUTES.cv]);
-          },
-        });
-      }
-    });
-  }
   deleteCv(cv: Cv) {
     this.cvService.deleteCvById(cv.id).subscribe({
       next: () => {
