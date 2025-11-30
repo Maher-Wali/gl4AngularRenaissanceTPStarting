@@ -20,10 +20,10 @@ export class UsersService {
   getOddOrEven(isOdd = false): User[] {
     return this.users.filter((user) => !!(user.age % 2) == isOdd );
   }
-  addUser(list: User[], name: string) {
-    list.unshift({
+  addUser(list: User[], name: string): User[] {
+    return [{
       name,
       age: faker.datatype.number({min: 18, max: 30})
-    });
+    }, ...list];
   }
 }

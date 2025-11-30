@@ -19,7 +19,14 @@ export class RhComponent implements OnInit {
         this.createChart();
     }
   addUser(list: User[], newUser: string) {
-    this.userService.addUser(list, newUser);
+    const updatedList = this.userService.addUser(list, newUser);
+
+    if (list === this.oddUsers) {
+      this.oddUsers = updatedList;
+    } else {
+      this.evenUsers = updatedList;
+    }
+
   }
   createChart(){
     const data = [
