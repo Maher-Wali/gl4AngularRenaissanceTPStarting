@@ -43,7 +43,9 @@ export class CvComponent {
 
   // Reference to the service's selectedCv signal
   selectedCv = this.cvService.selectedCv;
-  
+
+  showEmbauche = signal(false);
+
   date = new Date();
 
   /** Inserted by Angular inject() migration for backwards compatibility */
@@ -52,5 +54,11 @@ export class CvComponent {
   constructor() {
     this.logger.logger("je suis le cvComponent");
     this.toastr.info("Bienvenu dans notre CvTech");
+
+    effect(() => {
+      if (this.selectedCv()) {
+        this.showEmbauche.set(true);
+      }
+    });
   }
 }

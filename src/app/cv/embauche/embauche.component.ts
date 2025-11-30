@@ -20,5 +20,7 @@ export class EmbaucheComponent {
 
   /** Inserted by Angular inject() migration for backwards compatibility */
   constructor(...args: unknown[]);
-  constructor() {}
+  constructor() {
+    console.log("EmbaucheComponent chargé !");
+  }
 }

@@ -9,4 +9,6 @@
     <app-cv-card [cv]="selectedCv()"></app-cv-card>
   </div>
 </div>
-<app-embauche></app-embauche>
+@if (showEmbauche()) {
+  <app-embauche></app-embauche>
+}
