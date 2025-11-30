@@ -20,6 +20,13 @@ export class UsersService {
   getOddOrEven(isOdd = false): User[] {
     return this.users.filter((user) => !!(user.age % 2) == isOdd );
   }
+  
+  /**
+   * Ajoute un utilisateur à la liste
+   * 
+   * @param list - La liste d'origine
+   * @param name - Le nom du nouvel utilisateur
+   */
   addUser(list: User[], name: string) {
     list.unshift({
       name,

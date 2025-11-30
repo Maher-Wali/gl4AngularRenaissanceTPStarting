@@ -1,13 +1,12 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {User} from "../users.service";
 
-export const fibonnaci = (n: number): number => {
-  if (n==1 || n==0) {
-    return 1;
-  }
-  return fibonnaci(n-1) + fibonnaci(n-2);
-}
-
+/**
+ * Composant pour afficher une liste d'utilisateurs
+ * 
+ * Optimisation appliquée:
+ * - Utilisation du pipe Fibonacci au lieu d'une méthode pour éviter les recalculs
+ */
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
@@ -18,14 +17,9 @@ export class UserListComponent {
   @Input() users: User[] = [];
   @Output() add = new EventEmitter<string>();
   userFullName: string = '';
+  
   addUser() {
     this.add.emit(this.userFullName);
     this.userFullName = '';
-  }
-  fibo(n: number): number {
-    const fib = fibonnaci(n);
-    console.log({n, fib});
-
-    return fib;
   }
 }
