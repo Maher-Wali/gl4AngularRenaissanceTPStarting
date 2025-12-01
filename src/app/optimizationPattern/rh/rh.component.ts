@@ -22,22 +22,20 @@ export class RhComponent implements OnInit {
     this.createChart();
   }
   
-  // IMPORTANT: Pour que OnPush fonctionne, on doit créer une NOUVELLE référence
-  // Au lieu de muter l'array existant, on crée un nouveau array
   addUser(list: User[], newUser: string) {
     const newUserObj: User = {
       name: newUser,
       age: faker.datatype.number({min: 18, max: 30})
     };
     
-    // Création d'un nouveau array (immutable pattern)
+  
     if (list === this.oddUsers) {
       this.oddUsers = [newUserObj, ...this.oddUsers];
     } else {
       this.evenUsers = [newUserObj, ...this.evenUsers];
     }
     
-    // Mise à jour du chart
+  
     this.updateChart();
   }
   
